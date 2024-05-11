@@ -1,0 +1,31 @@
+// Statement: An assignment statement followed by a semicolon
+  stmt  : assn ';'
+
+  // Statements: One or more statements separated by semicolons
+  stmts : stmt
+        | stmts ';' stmt
+
+  // Assignment statement: An identifier followed by an equals sign and an expression
+  assn  : id '=' expr
+
+  // Expression: A term possibly followed by an addop and another expression
+  expr  : term addop expr
+        | term
+
+  // Term: A factor possibly followed by a mulop and another term
+  term  : fact mulop term
+        | fact
+
+  // Factor: An identifier, number, or expression enclosed in parentheses
+  fact  :  id
+        | num
+        | double
+        | '-' fact
+        | '(' expr ')'
+  // Additive operator: Plus or minus
+  addop : '+'
+        | '-'
+
+  // Multiplicative operator: Times or divide
+  mulop : '*'
+        | '/'
