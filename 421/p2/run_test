@@ -1,0 +1,76 @@
+#!/bin/sh
+
+
+javac *.java
+
+echo "java ShuffleDP ab bb bbab 1"
+java ShuffleDP ab bb bbab 1
+
+echo 
+
+echo "java ShuffleRM ab bb bbab 1"
+java ShuffleRM ab bb bbab 1
+
+echo "-------------------------------------"
+
+echo "java ShuffleDP bb ab bbab 1"
+java ShuffleDP bb ab bbab 1
+
+echo 
+
+echo "java ShuffleRM bb ab bbab 1"
+java ShuffleRM bb ab bbab 1
+
+echo "-------------------------------------"
+
+echo "java ShuffleDP aaaa bbbb aaaabbbb 1"
+java ShuffleDP aaaa bbbb aaaabbbb 1
+
+echo
+ 
+echo "java ShuffleRM aaaa bbbb aaaabbbb 1"
+java ShuffleRM aaaa bbbb aaaabbbb 1
+
+echo "-------------------------------------"
+
+echo "java ShuffleDP aaaa bbbb bbbbaaaa 1"
+java ShuffleDP aaaa bbbb bbbbaaaa 1
+
+echo 
+
+echo "java ShuffleRM aaaa bbbb bbbbaaaa 1"
+java ShuffleRM aaaa bbbb bbbbaaaa 1
+
+echo "-------------------------------------"
+
+echo "java ShuffleDP aaaa bbbb abababab 1"
+java ShuffleDP aaaa bbbb abababab 1
+
+echo 
+
+echo "java ShuffleRM aaaa bbbb abababab 1"
+java ShuffleRM aaaa bbbb abababab 1
+
+echo "-------------------------------------"
+
+echo "java ShuffleDP aaaa aaaa baaaaaaa 1"
+java ShuffleDP aaaa aaaa baaaaaaa 1
+
+echo
+
+echo "java ShuffleRM aaaa aaaa baaaaaaa 1"
+java ShuffleRM aaaa aaaa baaaaaaa 1
+
+echo
+echo "*************************************"
+echo "*************************************"
+echo
+
+echo "java KnapsackDP 17 50 w.txt v.txt 1"
+java KnapsackDP 17 50 w.txt v.txt 1
+
+echo
+
+echo "java KnapsackRM 17 50 w.txt v.txt 1"
+java KnapsackRM 17 50 w.txt v.txt 1
+

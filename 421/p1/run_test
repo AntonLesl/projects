@@ -1,0 +1,31 @@
+#!/bin/sh
+
+rm -f Test_output
+
+echo "java KnightTour 0 6 0 0"
+java KnightTour 0 6 0 0
+
+echo "java KnightTour 1 6 0 0" 
+java KnightTour 1 6 0 0
+
+echo "java KnightTour 2 6 0 0"
+java KnightTour 2 6 0 0
+
+echo "java KnightTour 0 6 1 1"
+java KnightTour 0 6 1 1
+
+echo "java KnightTour 1 6 1 1"
+java KnightTour 1 6 1 1
+
+echo "java KnightTour 2 6 1 1"
+java KnightTour 2 6 1 1
+
+echo "java KnightTour 0 4 0 0"
+java KnightTour 0 4 0 0
+
+echo "java KnightTour 1 4 0 0"
+java KnightTour 1 4 0 0
+
+echo "java KnightTour 2 4 0 0"
+java KnightTour 2 4 0 0
+

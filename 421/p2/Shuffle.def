@@ -1,0 +1,16 @@
+At the beginning of the program, you need to check
+if Length(X) + Length(Y) != Length(Z)
+   then exit and give users a usage prompt;
+
+
+t(i, j) = {
+
+true						if i = 0 and j = 0
+
+b(X[i], Z[i]) && t(i-1, 0)			if i > 0 and j = 0
+
+b(Y[j], Z[j]) && t(0, j-1)			if i = 0 and j > 0
+
+(b(X[i], Z[i+j]) && t(i-1, j)) ||		if i > 0 and j > 0
+(b(Y[j], Z[i+j]) && t(i, j-1))             
+}
