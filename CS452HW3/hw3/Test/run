@@ -1,0 +1,13 @@
+#!/bin/bash
+
+prg=./try
+
+for t in Test/Test_* ; do
+    echo -n "${t##*/} "
+    $prg <$t/inp 2>&1 >$t/out
+    if diff -q -w $t/exp $t/out 2>&1 >/dev/null; then
+        echo passed
+    else
+        echo failed >&2
+    fi
+done
