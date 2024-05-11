@@ -1,0 +1,159 @@
+Anton Leslie
+CS-331 Sec.1
+4/12/2023
+P2
+
+./lab2 < exploit1.txt
+ ----------------------------------------------------------------------------------------------------------------------
+
+Program Output:
+Calling our vulnerable function.
+
+  Entering our vulnerable function.
+    Please enter a string:
+ whatEver is: 3618357
+  Leaving our vulnerable function.
+n = 1
+
+Here is what is in the buffer
+123456789-123456789-123456789-123456789-1234567
+That's it.
+
+
+
+Explanation:
+exploit1.txt, which contains a string of 30 characters followed by a null terminator.
+When the program executes and reads from this file, it overflows the buffer buf
+with these 30 characters and null terminator, corrupting the stack and overwriting the values of whatEver, notNeeded, and i.
+buffer overflow overwrites the first byte of notNeeded with the null terminator, and then overwrites the four bytes of whatEver with the remaining characters of the input string.
+In this case, the value of whatEver is overwritten with the integer 0x00353438, which is equivalent to 89560 in decimal.
+This value is then printed out to the console by the line printf("\n whatEver is: %d", whatEver);,
+resulting in the output whatEver is: 3618357.
+------------------------------------------------------------------------------------------------------------------------
+
+./lab2 < exploit2.txt
+----------------------------------------------------------------------------------------------------------------------
+Program Output:
+Calling our vulnerable function.
+
+  Entering our vulnerable function.
+    Please enter a string:
+ whatEver is: 943142453
+  Leaving our vulnerable function.
+n = 943142453
+
+Here is what is in the buffer
+123456789-123456789-123456789-123456789-12345678
+That's it.
+Segmentation fault (core dumped)
+
+Input:
+
+123456789-123456789-123456789-123456789-12345678
+
+Difference:
+last
+12345678
+
+Explanation:
+exploit2.txt file contains a string of 26 characters or more,
+which overflows the buf array and writes over the adjacent memory on the stack.
+This corrupts the value of the variable n, which follows the buf array on the stack.
+n is overwritten with the ASCII value of the character immediately following the end of the input string
+
+As a result, the if statement condition in main evaluates to true and the global buffer is printed,
+which contains the characters written in the exploit string. Finally,
+the program crashes with a segmentation fault due to an illegal memory access caused by the buffer overflow.
+
+------------------------------------------------------------------------------------------------------------------------
+
+./lab2 < exploit3.txt
+----------------------------------------------------------------------------------------------------------------------
+Program Output:
+Calling our vulnerable function.
+
+  Entering our vulnerable function.
+    Please enter a string:
+ whatEver is: 943142453
+  Leaving our vulnerable function.
+n = 0
+We really shouldn't be able to ever see this output.
+Segmentation fault (core dumped)
+
+Input:
+123456789-123456789-123456789-123456789-123456789
+
+Difference:
+last
+123456789
+
+Explanation:
+ it seems that an exploit was used by providing an input file "exploit3.txt" that contained a string larger than 26 characters.
+ When the program runs with the input redirected from this file (./lab2 < exploit3.txt),
+ it enters the vulnerable() function and prompts the user to enter a string.
+ However, because the input is redirected from the file,
+ the program reads in the large string from the file instead of waiting for user input.
+ This overflows the buffer and corrupts adjacent memory locations, causing the whatEver variable to be overwritten with a different value (943142453 instead of 987654321)
+ before the program exits the vulnerable() function.
+ The variable n is set to 0 instead of 1, and the program crashes with a segmentation fault
+ when it tries to print the globalBuf variable.
+------------------------------------------------------------------------------------------------------------------------
+
+Modified code lab2New.c outputs for all text files
+------------------------------------------------------------------------------------------------------------------------
+[antonleslie@onyx P2]$ ./lab2New < exploit1.txt
+Calling our vulnerable function.
+
+  Entering our vulnerable function.
+    Please enter a string: 
+ whatEver is: 987654321
+  Leaving our vulnerable function.
+n = 1
+
+Here is what is in the buffer
+123456789-123456789-12345
+That's it.
+------------------------------------------------------------------------------------------------------------------------
+[antonleslie@onyx P2]$ ./lab2New < exploit2.txt
+Calling our vulnerable function.
+
+  Entering our vulnerable function.
+    Please enter a string: 
+ whatEver is: 987654321
+  Leaving our vulnerable function.
+n = 1
+
+Here is what is in the buffer
+123456789-123456789-12345
+That's it.
+------------------------------------------------------------------------------------------------------------------------
+
+
+[antonleslie@onyx P2]$ ./lab2New < exploit3.txt
+Calling our vulnerable function.
+
+  Entering our vulnerable function.
+    Please enter a string: 
+ whatEver is: 987654321
+  Leaving our vulnerable function.
+n = 1
+
+Here is what is in the buffer
+123456789-123456789-12345
+That's it.
+
+------------------------------------------------------------------------------------------------------------------------
+
+compile instructions 
+------------------------------------------------------------------------------------------------------------------------
+gcc lab2.c -o lab2
+gcc lab2New.c -o lab2New
+
+------------------------------------------------------------------------------------------------------------------------
+./lab2New < exploit1.txt
+./lab2New < exploit2.txt
+./lab2New < exploit3.txt
+
+./lab2 < exploit1.txt
+./lab2 < exploit2.txt
+./lab2 < exploit3.txt
